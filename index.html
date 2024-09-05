@@ -3,57 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gatekeeper Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Login - Gatekeeper</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .login-container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .login-container input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #555;
+            color: #fff;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Login to Gatekeeper</h1>
-
-        <!-- Login Form -->
-        <form id="login-form">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-
-        <p>Don't have an account? <a href="register.html">Register here</a></p>
+    <div class="login-container">
+        <h2>Login to Gatekeeper</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button id="loginButton">Login</button>
+        <p id="errorMessage" style="color: #f44336;"></p>
     </div>
-
     <script>
-        const users = JSON.parse(localStorage.getItem('users')) || [
-            { username: 'admin', password: 'admin123', role: 'admin' }
-        ];
+        // Function to get users from localStorage
+        function getUsers() {
+            return JSON.parse(localStorage.getItem('users')) || [];
+        }
 
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+        // Store default admin credentials
+        const defaultAdmin = { username: 'admin', password: 'adminpass', role: 'admin' };
+
+        // Retrieve users and include default admin if not already present
+        let users = getUsers();
+        if (!users.find(user => user.username === defaultAdmin.username)) {
+            users.push(defaultAdmin);
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        document.getElementById('loginButton').addEventListener('click', function() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            const user = users.find(user => user.username === username && user.password === password);
+            if (!username || !password) {
+                document.getElementById('errorMessage').textContent = 'Please enter both username and password.';
+                return;
+            }
+
+            users = getUsers();  // Refresh users list to include any newly added sellers
+            const user = users.find(u => u.username === username && u.password === password);
+
             if (user) {
-                alert('Login successful! Welcome to Gatekeeper.');
-                localStorage.setItem('loggedIn', 'true');
-                localStorage.setItem('userRole', user.role);
+                localStorage.setItem('currentUser', JSON.stringify(user));
                 if (user.role === 'admin') {
                     window.location.href = 'admin.html';
-                } else {
+                } else if (user.role === 'seller') { // Adjusted role check to 'seller'
                     window.location.href = 'member.html';
+                } else {
+                    document.getElementById('errorMessage').textContent = 'User role not recognized.';
                 }
             } else {
-                alert('Invalid username or password. Please try again.');
+                document.getElementById('errorMessage').textContent = 'Invalid username or password.';
             }
         });
-
-        if (localStorage.getItem('loggedIn') === 'true') {
-            const userRole = localStorage.getItem('userRole');
-            if (userRole === 'admin') {
-                window.location.href = 'admin.html';
-            } else {
-                window.location.href = 'member.html';
-            }
-        }
     </script>
 </body>
 </html>
-

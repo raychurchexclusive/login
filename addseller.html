@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Ticket Seller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 300px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #555;
+            color: #fff;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h2 {
+            text-align: center;
+        }
+        #assignedSellers {
+            margin-top: 10px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add Ticket Seller</h2>
+        <input type="text" id="sellerName" placeholder="Seller Name" required>
+        <input type="text" id="sellerLoginID" placeholder="Seller Login ID" required>
+        <input type="password" id="sellerPassword" placeholder="Seller Password" required>
+        <input type="text" id="employeeNumber" placeholder="Employee Number" required>
+        <select id="eventSelect">
+            <option value="">Select Event</option>
+            <!-- Dynamically filled with events from localStorage -->
+        </select>
+        <button id="addSellerButton">Add Seller</button>
+        <p id="message" style="color: #f44336;"></p>
+        <div id="assignedSellers">Assigned Sellers: None</div>
+    </div>
+
+    <script>
+        // Load events from localStorage to populate event dropdown
+        function loadEvents() {
+            const events = JSON.parse(localStorage.getItem('events')) || [];
+            const eventSelect = document.getElementById('eventSelect');
+            events.forEach(event => {
+                const option = document.createElement('option');
+                option.value = event.name;
+                option.textContent = `${event.name} (${event.date} - ${event.time})`;
+                eventSelect.appendChild(option);
+            });
+        }
+
+        // Update assigned sellers based on selected event
+        function updateAssignedSellers(eventName) {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const sellers = users.filter(user => user.event === eventName && user.role === 'seller');
+            const assignedSellersDiv = document.getElementById('assignedSellers');
+            if (sellers.length > 0) {
+                const sellerNames = sellers.map(seller => seller.name).join(', ');
+                assignedSellersDiv.textContent = `Assigned Sellers: ${sellerNames}`;
+            } else {
+                assignedSellersDiv.textContent = 'Assigned Sellers: None';
+            }
+        }
+
+        // Add seller and store in localStorage
+        document.getElementById('addSellerButton').addEventListener('click', function() {
+            const sellerName = document.getElementById('sellerName').value;
+            const sellerLoginID = document.getElementById('sellerLoginID').value;
+            const sellerPassword = document.getElementById('sellerPassword').value;
+            const employeeNumber = document.getElementById('employeeNumber').value;
+            const selectedEvent = document.getElementById('eventSelect').value;
+
+            if (!sellerName || !sellerLoginID || !sellerPassword || !employeeNumber || !selectedEvent) {
+                document.getElementById('message').textContent = 'Please fill out all fields.';
+                return;
+            }
+
+            const newSeller = {
+                username: sellerLoginID,
+                password: sellerPassword,
+                name: sellerName,
+                employeeNumber: employeeNumber,
+                event: selectedEvent,
+                role: 'seller'
+            };
+
+            // Retrieve existing users and add the new seller
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            users.push(newSeller);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Redirect back to admin page
+            window.location.href = 'admin.html';
+        });
+
+        // Load events on page load
+        loadEvents();
+
+        // Update assigned sellers when an event is selected
+        document.getElementById('eventSelect').addEventListener('change', function() {
+            updateAssignedSellers(this.value);
+        });
+    </script>
+</body>
+</html>

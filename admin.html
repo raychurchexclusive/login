@@ -3,26 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Area</title>
-</head>
-<body>
-    <h1>Welcome to the Admin Area</h1>
-    <p>You have administrative privileges.</p>
-    <button id="logout">Logout</button>
-
-    <script>
-        // Check if user is logged in and is an admin
-        const loggedIn = localStorage.getItem('loggedIn');
-        const userRole = localStorage.getItem('userRole');
-        if (loggedIn !== 'true' || userRole !== 'admin') {
-            window.location.href = 'index.html';  // Redirect to login if not admin
+    <title>Admin Dashboard - Gatekeeper</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        // Logout event
-        document.getElementById('logout').addEventListener('click', function() {
-            localStorage.removeItem('loggedIn');
-            localStorage.removeItem('userRole');
-            window.location.href = 'index.html';  // Redirect to login page
+        .admin-container {
+            padding: 20px;
+            background-color: #444;
+            border-radius: 8px;
+            max-width: 1000px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .button-group button {
+            margin: 5px;
+        }
+
+        .event-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+            margin: 5px;
+            width: 80%;
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .popup-close:hover {
+            color: #f44336;
+        }
+
+        .event-button {
+            background-color: #2196F3;
+            color: #fff;
+            margin: 5px 0;
+            width: 80%;
+            max-width: 300px;
+            text-align: left;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .event-button:hover {
+            background-color: #1976D2;
+        }
+
+        .remove-button {
+            background-color: #f44336;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            padding: 5px;
+        }
+
+        .remove-button:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Admin Dashboard</h1>
+        <div class="button-group">
+            <button id="addSellerButton">Add Ticket Seller</button>
+            <button id="addEventButton">Add Event</button>
+        </div>
+
+        <div id="eventsContainer" class="event-buttons">
+            <h2>Events</h2>
+            <!-- Event buttons will be inserted here by JavaScript -->
+        </div>
+
+        <button id="logoutButton">Logout</button>
+    </div>
+
+    <div id="eventPopup" class="popup">
+        <div class="popup-content">
+            <span class="popup-close">&times;</span>
+            <h2 id="eventTitle"></h2>
+            <p id="eventDetails"></p>
+            <div id="eventSellers"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const eventsContainer = document.getElementById('eventsContainer');
+            const eventPopup = document.getElementById('eventPopup');
+            const eventTitle = document.getElementById('eventTitle');
+            const eventDetails = document.getElementById('eventDetails');
+            const eventSellers = document.getElementById('eventSellers');
+            const popupClose = document.querySelector('.popup-close');
+            const addSellerButton = document.getElementById('addSellerButton');
+            const addEventButton = document.getElementById('addEventButton');
+            const logoutButton = document.getElementById('logoutButton');
+
+            // Function to create event buttons
+            function loadEvents() {
+                const events = JSON.parse(localStorage.getItem('events')) || [];
+                eventsContainer.innerHTML = '<h2>Events</h2>'; // Clear previous content
+
+                if (events.length === 0) {
+                    eventsContainer.innerHTML += '<p>No events available. Please add an event.</p>';
+                    return;
+                }
+
+                events.forEach((event, index) => {
+                    const button = document.createElement('button');
+                    button.textContent = event.name;
+                    button.className = `event-button event-${(index % 3) + 1}`;
+                    button.onclick = () => showEventPopup(event);
+                    eventsContainer.appendChild(button);
+
+                    // Create Remove button
+                    const removeButton = document.createElement('button');
+                    removeButton.textContent = 'Remove Event';
+                    removeButton.className = 'remove-button';
+                    removeButton.onclick = () => removeEvent(event.name);
+                    eventsContainer.appendChild(removeButton);
+                });
+            }
+
+            // Function to show the event details in a popup
+            function showEventPopup(event) {
+                eventTitle.textContent = event.name;
+                eventDetails.textContent = `Date: ${event.date}\nTime: ${event.time}`;
+
+                // Show sellers assigned to the event
+                const sellers = JSON.parse(localStorage.getItem('users')) || [];
+                const assignedSellers = sellers.filter(seller => seller.event === event.name);
+
+                eventSellers.innerHTML = '<h3>Assigned Sellers:</h3>';
+                if (assignedSellers.length === 0) {
+                    eventSellers.innerHTML += '<p>No sellers assigned to this event.</p>';
+                } else {
+                    assignedSellers.forEach(seller => {
+                        const sellerDiv = document.createElement('div');
+                        sellerDiv.textContent = `Name: ${seller.name}, Login ID: ${seller.username}, Employee Number: ${seller.employeeNumber}`;
+                        eventSellers.appendChild(sellerDiv);
+                    });
+                }
+
+                eventPopup.style.display = 'flex';
+            }
+
+            // Function to close the popup
+            popupClose.onclick = () => {
+                eventPopup.style.display = 'none';
+            }
+
+            // Close popup when clicking outside of it
+            window.onclick = (event) => {
+                if (event.target === eventPopup) {
+                    eventPopup.style.display = 'none';
+                }
+            }
+
+            // Function to remove an event
+            function removeEvent(eventName) {
+                const confirmation = confirm(`Are you sure you want to delete the event: ${eventName}?`);
+                if (confirmation) {
+                    const events = JSON.parse(localStorage.getItem('events')) || [];
+                    const updatedEvents = events.filter(event => event.name !== eventName);
+                    localStorage.setItem('events', JSON.stringify(updatedEvents));
+                    loadEvents(); // Reload the event list
+                }
+            }
+
+            // Load events on page load
+            loadEvents();
+
+            // Redirect to add seller page
+            addSellerButton.onclick = () => {
+                window.location.href = 'addseller.html';
+            }
+
+            // Redirect to add event page
+            addEventButton.onclick = () => {
+                window.location.href = 'addevent.html';
+            }
+
+            // Logout button functionality
+            logoutButton.onclick = () => {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'index.html';
+            }
         });
     </script>
 </body>

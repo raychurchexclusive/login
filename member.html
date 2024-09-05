@@ -4,26 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Area</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            width: 200px;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        #cashButton {
+            background-color: #2196F3;
+        }
+        #qrButton {
+            background-color: #4CAF50;
+        }
+        #totalsButton {
+            background-color: #FFC107;
+        }
+        #logoutButton {
+            background-color: #F44336;
+            position: absolute;
+            bottom: 20px;
+        }
+        #cashButton:hover, #qrButton:hover, #totalsButton:hover, #logoutButton:hover {
+            opacity: 0.9;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .popup button {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Member Area</h1>
-    <p>You are now logged in as a regular member.</p>
-    <button id="logout">Logout</button>
+    <div class="button-container">
+        <button id="cashButton">Cash</button>
+        <button id="qrButton">QR Code</button>
+        <button id="totalsButton">View Totals</button>
+        <button id="logoutButton">Logout</button>
+    </div>
+
+    <!-- Cash confirmation popup -->
+    <div id="cashPopup" class="popup">
+        <p>Added $10 to the total.</p>
+        <button id="closeCashPopup">OK</button>
+    </div>
+
+    <!-- QR code popup -->
+    <div id="qrPopup" class="popup">
+        <img src="qr-code-placeholder.png" alt="QR Code">
+        <button id="confirmQRCode">Confirm</button>
+        <button id="closeQRCode">Close</button>
+    </div>
+
+    <!-- Totals popup -->
+    <div id="totalsPopup" class="popup">
+        <p>QR Sales Total: $<span id="qrTotal">0</span></p>
+        <p>Cash Sales Total: $<span id="cashTotal">0</span></p>
+        <label for="feePercentage">Fee Percentage:</label>
+        <input type="number" id="feePercentage" min="0" max="100" step="0.01" value="0">
+        <p>Adjusted Total: $<span id="adjustedTotal">0</span></p>
+        <button id="closeTotalsPopup">Close</button>
+    </div>
 
     <script>
-        // Check if user is logged in and is a member
-        const loggedIn = localStorage.getItem('loggedIn');
-        const userRole = localStorage.getItem('userRole');
-        if (loggedIn !== 'true' || userRole !== 'member') {
-            window.location.href = 'index.html';  // Redirect to login if not member
+        // Initialize totals
+        let qrTotal = parseFloat(localStorage.getItem('qrTotal') || '0');
+        let cashTotal = parseFloat(localStorage.getItem('cashTotal') || '0');
+
+        // Function to update totals in localStorage
+        function updateLocalStorage() {
+            localStorage.setItem('qrTotal', qrTotal);
+            localStorage.setItem('cashTotal', cashTotal);
         }
 
-        // Logout event
-        document.getElementById('logout').addEventListener('click', function() {
+        // Function to update totals in the popup
+        function updateTotalsPopup() {
+            document.getElementById('qrTotal').textContent = qrTotal;
+            document.getElementById('cashTotal').textContent = cashTotal;
+            const feePercentage = parseFloat(document.getElementById('feePercentage').value) || 0;
+            const total = qrTotal + cashTotal;
+            const adjustedTotal = total - (total * (feePercentage / 100));
+            document.getElementById('adjustedTotal').textContent = adjustedTotal.toFixed(2);
+        }
+
+        // Handle Cash button click
+        document.getElementById('cashButton').addEventListener('click', function() {
+            cashTotal += 10;
+            updateLocalStorage();
+            updateTotalsPopup();
+
+            const cashPopup = document.getElementById('cashPopup');
+            cashPopup.style.display = 'block';
+
+            document.getElementById('closeCashPopup').addEventListener('click', function() {
+                cashPopup.style.display = 'none';
+            });
+        });
+
+        // Handle QR Code button click
+        document.getElementById('qrButton').addEventListener('click', function() {
+            const qrPopup = document.getElementById('qrPopup');
+            qrPopup.style.display = 'block';
+
+            document.getElementById('confirmQRCode').addEventListener('click', function() {
+                qrTotal += 10;
+                updateLocalStorage();
+                updateTotalsPopup();
+                qrPopup.style.display = 'none';
+            });
+
+            document.getElementById('closeQRCode').addEventListener('click', function() {
+                qrPopup.style.display = 'none';
+            });
+        });
+
+        // Handle View Totals button click
+        document.getElementById('totalsButton').addEventListener('click', function() {
+            updateTotalsPopup();
+            document.getElementById('totalsPopup').style.display = 'block';
+
+            document.getElementById('closeTotalsPopup').addEventListener('click', function() {
+                document.getElementById('totalsPopup').style.display = 'none';
+            });
+        });
+
+        // Handle Logout button click
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            localStorage.removeItem('currentUser');
             localStorage.removeItem('loggedIn');
-            localStorage.removeItem('userRole');
             window.location.href = 'index.html';  // Redirect to login page
         });
+
+        // Update the totals initially
+        updateTotalsPopup();
     </script>
 </body>
 </html>

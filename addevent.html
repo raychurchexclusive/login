@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #222;
+        }
+        .form-container {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+        }
+        .form-container input, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 8px;
+        }
+        .form-container input {
+            background-color: #555;
+            color: #fff;
+        }
+        .form-container button {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+        .button {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Event</h1>
+        <div class="form-container">
+            <input type="text" id="eventName" placeholder="Event Name" required>
+            <input type="date" id="eventDate" required>
+            <input type="time" id="eventTime" required>
+            <button id="addEventButton">Add Event</button>
+        </div>
+        <a href="admin.html" class="button">Back to Admin Dashboard</a>
+    </div>
+    <script>
+        // Check if the user is logged in and has admin privileges
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser || currentUser.role !== 'admin') {
+            window.location.href = 'index.html';
+        }
+        
+        // Function to add an event
+        document.getElementById('addEventButton').addEventListener('click', function() {
+            const eventName = document.getElementById('eventName').value;
+            const eventDate = document.getElementById('eventDate').value;
+            const eventTime = document.getElementById('eventTime').value;
+
+            if (!eventName || !eventDate || !eventTime) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            const events = JSON.parse(localStorage.getItem('events')) || [];
+            events.push({
+                name: eventName,
+                date: eventDate,
+                time: eventTime,
+                sellers: [], // Initialize empty seller list
+                sales: {
+                    cash: 0,
+                    credit: 0,
+                    total: 0
+                }
+            });
+
+            localStorage.setItem('events', JSON.stringify(events));
+            alert('Event added successfully!');
+            window.location.href = 'admin.html'; // Redirect to admin page
+        });
+    </script>
+</body>
+</html>
