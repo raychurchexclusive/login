@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatekeeper Login</title>
+</head>
+<body>
+    <h1>Login to Gatekeeper</h1>
+
+    <!-- Login Form -->
+    <form id="login-form">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        // Basic user data (you can modify this)
+        const users = [
+            { username: 'admin', password: 'password123' },  // Example user
+            { username: 'user1', password: 'mypassword' }    // Add more users as needed
+        ];
+
+        // Login event
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Check if the user exists
+            const user = users.find(user => user.username === username && user.password === password);
+            if (user) {
+                alert('Login successful! Welcome to Gatekeeper.');
+                // Save login status in local storage
+                localStorage.setItem('loggedIn', 'true');
+                window.location.href = 'dashboard.html';  // Redirect to another page
+            } else {
+                alert('Invalid username or password. Please try again.');
+            }
+        });
+
+        // Check if already logged in
+        if (localStorage.getItem('loggedIn') === 'true') {
+            window.location.href = 'dashboard.html';  // Redirect if already logged in
+        }
+    </script>
+</body>
+</html>
+2. Create a Dashboard or Protected Page
+Create a dashboard.html (or any other protected page):
+
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatekeeper Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to the Dashboard</h1>
+    <p>You are now logged in.</p>
+    <button id="logout">Logout</button>
+
+    <script>
+        // Check if user is logged in
+        if (localStorage.getItem('loggedIn') !== 'true') {
+            window.location.href = 'index.html';  // Redirect to login if not logged in
+        }
+
+        // Logout event
+        document.getElementById('logout').addEventListener('click', function() {
+            localStorage.removeItem('loggedIn');
+            window.location.href = 'index.html';  // Redirect to login page
+        });
+    </script>
+</body>
+</html>

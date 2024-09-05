@@ -1,0 +1,200 @@
+[debug] [2024-09-04T23:47:42.306Z] ----------------------------------------------------------------------
+[debug] [2024-09-04T23:47:42.309Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-09-04T23:47:42.310Z] CLI Version:   13.16.0
+[debug] [2024-09-04T23:47:42.310Z] Platform:      win32
+[debug] [2024-09-04T23:47:42.310Z] Node Version:  v20.11.1
+[debug] [2024-09-04T23:47:42.310Z] Time:          Wed Sep 04 2024 18:47:42 GMT-0500 (Central Daylight Time)
+[debug] [2024-09-04T23:47:42.310Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-09-04T23:47:42.318Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-09-04T23:47:42.318Z] > authorizing via signed-in user (ryan.starnes@raychurchexclusive.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Church\Documents\Login\login
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-09-04T23:51:43.991Z] > refreshing access token with scopes: []
+[debug] [2024-09-04T23:51:43.993Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-09-04T23:51:43.993Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-09-04T23:51:44.218Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2024-09-04T23:51:44.218Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-09-04T23:51:44.218Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2024-09-04T23:51:44.314Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at invalidCredentialError (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:140:12)
+    at refreshTokens (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:514:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async getAccessToken (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:40:18)
+    at async Client.addAuthHeader (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:167:21)
+    at async Client.request (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:118:34)
+    at async getProjectPage (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:238:17)
+    at async getFirebaseProjectPage (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:255:23)
+    at async selectProjectInteractively (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:94:41)
+    at async doSetup (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:88:27)
+[error] 
+[error] Error: Failed to list Firebase projects. See firebase-debug.log for more info.
+[debug] [2024-09-04T23:51:52.990Z] ----------------------------------------------------------------------
+[debug] [2024-09-04T23:51:52.992Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-09-04T23:51:52.993Z] CLI Version:   13.16.0
+[debug] [2024-09-04T23:51:52.993Z] Platform:      win32
+[debug] [2024-09-04T23:51:52.993Z] Node Version:  v20.11.1
+[debug] [2024-09-04T23:51:52.993Z] Time:          Wed Sep 04 2024 18:51:52 GMT-0500 (Central Daylight Time)
+[debug] [2024-09-04T23:51:52.993Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-09-04T23:51:53.000Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-09-04T23:51:53.000Z] > authorizing via signed-in user (ryan.starnes@raychurchexclusive.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Church\Documents\Login\login
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-09-04T23:52:03.342Z] > refreshing access token with scopes: []
+[debug] [2024-09-04T23:52:03.344Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-09-04T23:52:03.344Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-09-04T23:52:03.527Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2024-09-04T23:52:03.528Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-09-04T23:52:03.528Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2024-09-04T23:52:03.606Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at invalidCredentialError (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:140:12)
+    at refreshTokens (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:514:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async getAccessToken (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:40:18)
+    at async Client.addAuthHeader (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:167:21)
+    at async Client.request (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:118:34)
+    at async getProjectPage (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:238:17)
+    at async getFirebaseProjectPage (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:255:23)
+    at async selectProjectInteractively (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:94:41)
+    at async doSetup (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:88:27)
+[error] 
+[error] Error: Failed to list Firebase projects. See firebase-debug.log for more info.
+[debug] [2024-09-04T23:53:02.823Z] ----------------------------------------------------------------------
+[debug] [2024-09-04T23:53:02.826Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-09-04T23:53:02.826Z] CLI Version:   13.16.0
+[debug] [2024-09-04T23:53:02.826Z] Platform:      win32
+[debug] [2024-09-04T23:53:02.826Z] Node Version:  v20.11.1
+[debug] [2024-09-04T23:53:02.826Z] Time:          Wed Sep 04 2024 18:53:02 GMT-0500 (Central Daylight Time)
+[debug] [2024-09-04T23:53:02.827Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-09-04T23:53:02.834Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-09-04T23:53:02.834Z] > authorizing via signed-in user (ryan.starnes@raychurchexclusive.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Church\Documents\Login\login
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2024-09-04T23:53:39.493Z] > refreshing access token with scopes: []
+[debug] [2024-09-04T23:53:39.495Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-09-04T23:53:39.496Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-09-04T23:53:39.680Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2024-09-04T23:53:39.680Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-09-04T23:53:39.762Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at invalidCredentialError (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:140:12)
+    at refreshTokens (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:514:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async getAccessToken (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:40:18)
+    at async Client.addAuthHeader (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:167:21)
+    at async Client.request (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:118:34)
+    at async createCloudProject (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:180:26)
+    at async createFirebaseProjectAndLog (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:45:9)
+    at async promptAndCreateNewProject (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:32:12)
+    at async doSetup (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:88:27)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.
+[debug] [2024-09-05T00:01:17.163Z] ----------------------------------------------------------------------
+[debug] [2024-09-05T00:01:17.169Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-09-05T00:01:17.170Z] CLI Version:   13.16.0
+[debug] [2024-09-05T00:01:17.170Z] Platform:      win32
+[debug] [2024-09-05T00:01:17.170Z] Node Version:  v20.11.1
+[debug] [2024-09-05T00:01:17.170Z] Time:          Wed Sep 04 2024 19:01:17 GMT-0500 (Central Daylight Time)
+[debug] [2024-09-05T00:01:17.171Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-09-05T00:01:17.177Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-09-05T00:01:17.177Z] > authorizing via signed-in user (ryan.starnes@raychurchexclusive.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Church\Documents\Login\login
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2024-09-05T00:01:31.737Z] > refreshing access token with scopes: []
+[debug] [2024-09-05T00:01:31.739Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-09-05T00:01:31.740Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-09-05T00:01:31.925Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2024-09-05T00:01:31.925Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-09-05T00:01:32.025Z] FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+    at invalidCredentialError (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:140:12)
+    at refreshTokens (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\auth.js:514:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async getAccessToken (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:40:18)
+    at async Client.addAuthHeader (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:167:21)
+    at async Client.request (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:118:34)
+    at async createCloudProject (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:180:26)
+    at async createFirebaseProjectAndLog (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:45:9)
+    at async promptAndCreateNewProject (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:32:12)
+    at async doSetup (C:\Users\Church\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:88:27)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.
