@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Gatekeeper</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Register for Gatekeeper</h1>
+
+    <!-- Registration Form -->
+    <form id="register-form">
+        <input type="text" id="register-username" placeholder="Choose a username" required>
+        <input type="password" id="register-password" placeholder="Choose a password" required>
+        <input type="password" id="register-password-confirm" placeholder="Confirm your password" required>
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="index.html">Login here</a></p>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('register-username').value;
+            const password = document.getElementById('register-password').value;
+            const passwordConfirm = document.getElementById('register-password-confirm').value;
+
+            if (password !== passwordConfirm) {
+                alert('Passwords do not match. Please try again.');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            const userExists = users.some(user => user.username === username);
+            if (userExists) {
+                alert('Username already taken. Please choose a different one.');
+                return;
+            }
+
+            users.push({ username, password, role: 'member' });
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Registration successful! You can now log in.');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

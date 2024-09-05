@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Area</title>
+</head>
+<body>
+    <h1>Welcome to the Admin Area</h1>
+    <p>You have administrative privileges.</p>
+    <button id="logout">Logout</button>
+
+    <script>
+        // Check if user is logged in and is an admin
+        const loggedIn = localStorage.getItem('loggedIn');
+        const userRole = localStorage.getItem('userRole');
+        if (loggedIn !== 'true' || userRole !== 'admin') {
+            window.location.href = 'index.html';  // Redirect to login if not admin
+        }
+
+        // Logout event
+        document.getElementById('logout').addEventListener('click', function() {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('userRole');
+            window.location.href = 'index.html';  // Redirect to login page
+        });
+    </script>
+</body>
+</html>

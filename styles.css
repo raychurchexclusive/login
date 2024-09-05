@@ -1,0 +1,70 @@
+/* styles.css */
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e; /* Dark grey background */
+    color: #ffffff; /* White text */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    color: #ff4c4c; /* Red accent for headers */
+}
+
+form {
+    background-color: #2c2c2c; /* Slightly lighter grey for forms */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #3c3c3c; /* Dark grey input fields */
+    border: 1px solid #555555;
+    border-radius: 4px;
+    color: #ffffff;
+}
+
+input[type="text"]::placeholder, input[type="password"]::placeholder {
+    color: #aaaaaa; /* Lighter grey placeholder text */
+}
+
+button {
+    background-color: #ff4c4c; /* Red button */
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #ff1c1c; /* Darker red on hover */
+}
+
+a {
+    color: #ff4c4c;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    margin-top: 20px;
+}
+

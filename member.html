@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Area</title>
+</head>
+<body>
+    <h1>Welcome to the Member Area</h1>
+    <p>You are now logged in as a regular member.</p>
+    <button id="logout">Logout</button>
+
+    <script>
+        // Check if user is logged in and is a member
+        const loggedIn = localStorage.getItem('loggedIn');
+        const userRole = localStorage.getItem('userRole');
+        if (loggedIn !== 'true' || userRole !== 'member') {
+            window.location.href = 'index.html';  // Redirect to login if not member
+        }
+
+        // Logout event
+        document.getElementById('logout').addEventListener('click', function() {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('userRole');
+            window.location.href = 'index.html';  // Redirect to login page
+        });
+    </script>
+</body>
+</html>
